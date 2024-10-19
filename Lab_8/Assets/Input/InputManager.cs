@@ -48,7 +48,7 @@ public class InputManager : MonoBehaviour
     {
         // Assign the input action by indicating the action's name from the action map that is contained in the PlayerInput component.
         moveAction = playerInput.actions["Move"];
-        attackAction = playerInput.actions["Fire"];
+        attackAction = playerInput.actions["Attack"];
         restartAction = playerInput.actions["Restart"];
         quitAction = playerInput.actions["Quit"];
     }
