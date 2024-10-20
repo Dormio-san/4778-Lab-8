@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputManager : MonoBehaviour
+public class InputManager : Singleton<InputManager>
 {
-    // Creaete singleton reference for easy reference from other scripts.
-    public static InputManager instance;
 
     // Reference to the player input component.
     public static PlayerInput playerInput;
@@ -25,12 +23,6 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
-        // Set singleton referene if it hasn't already been.
-        if (instance == null)
-        {
-            instance = this;
-        }
-
         // Assign playerInput reference.
         playerInput = GetComponent<PlayerInput>();
 
