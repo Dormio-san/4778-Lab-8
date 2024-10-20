@@ -11,7 +11,11 @@ public abstract class EnemyBuilder
         get { return enemyType; }
     }
 
+
+    //The speed of the object
     public abstract void BuildSpeed();
-    public abstract void BuildSize();
+
+    //The number of points of the object
+    public abstract void BuildPoints();
     
 }
