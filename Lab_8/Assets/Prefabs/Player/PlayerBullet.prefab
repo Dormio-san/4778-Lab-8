@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7334566990923635226}
   - component: {fileID: 9014517545487212621}
   - component: {fileID: 6596534003389920356}
-  - component: {fileID: -2287346939339885635}
+  - component: {fileID: -3245276574795990337}
   m_Layer: 0
   m_Name: PlayerBullet
   m_TagString: Untagged
@@ -121,7 +121,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.41, y: 0.8}
   m_Direction: 0
---- !u!114 &-2287346939339885635
+--- !u!114 &-3245276574795990337
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,6 +130,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1819982191581984314}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc6628e7ff9ecab43aa306cf90161da3, type: 3}
+  m_Script: {fileID: 11500000, guid: 9fde28829008e584998ff02504e59d6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 10
