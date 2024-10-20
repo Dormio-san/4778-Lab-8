@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
@@ -13,10 +11,9 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
             if (_instance == null)
             {
                 _instance = FindOrCreateInstance();
-            } 
-            return _instance; 
+            }
+            return _instance;
         }
-
     }
 
     // Instance set in this script.

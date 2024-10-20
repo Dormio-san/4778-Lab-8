@@ -1,31 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Shoot : MonoBehaviour
+public class PlayerShoot : MonoBehaviour
 {
     [SerializeField] private Transform firePoint;
 
-
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (InputManager.instance.attackInput)
         {
-            Shootbullets(); 
+            Shootbullets();
         }
     }
+
     private void Shootbullets()
     {
-
-        Bullet bullet = BulletPool.Instance.GetBullet();
-        if(bullet !=null)
+        Bullet bullet = BulletPool.instance.GetBullet();
+        if (bullet != null)
         {
             bullet.transform.position = firePoint.position;
             bullet.transform.rotation = firePoint.rotation;
-           
         }
-        
-        
     }
 }

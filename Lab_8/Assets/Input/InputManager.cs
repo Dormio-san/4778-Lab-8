@@ -1,22 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InputManager : Singleton<InputManager>
 {
-
     // Reference to the player input component.
     public static PlayerInput playerInput;
 
     // Inputs that will be referenced in other scripts to get their values and use them.
     public Vector2 moveInput { get; private set; }
+
     public bool attackInput { get; private set; }
     public bool restartInput { get; private set; }
     public bool quitInput { get; private set; }
 
     // Input actions in the controls action map.
     private InputAction moveAction;
+
     private InputAction attackAction;
     private InputAction restartAction;
     private InputAction quitAction;

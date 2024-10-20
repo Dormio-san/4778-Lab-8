@@ -41,11 +41,10 @@ GameObject:
   m_Component:
   - component: {fileID: 623177990873209256}
   - component: {fileID: 681868609811760862}
-  - component: {fileID: 1294057427590027334}
   - component: {fileID: 4832780478676109319}
+  - component: {fileID: 2682494027182187014}
   - component: {fileID: 3413267968792218643}
   - component: {fileID: 3396046752232361339}
-  - component: {fileID: 2682494027182187014}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -121,20 +120,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1294057427590027334
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4629143876065537486}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 599dc8a58b409de49b76021e6982a386, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullet: {fileID: 1819982191581984314, guid: e6e7b7b0d2f76a845b72fcefa2ddbfab, type: 3}
-  bulletSpawn: {fileID: 4227705957318579067}
 --- !u!114 &4832780478676109319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,6 +132,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40daf0bb42be486469c285f2e03c3e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2682494027182187014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4629143876065537486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e90dec58117eb2d4182d18b0c2698263, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firePoint: {fileID: 5506393195113360028}
 --- !u!70 &3413267968792218643
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -227,16 +225,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.1189923, y: 0.21133828}
   m_EdgeRadius: 0
---- !u!114 &2682494027182187014
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4629143876065537486}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e90dec58117eb2d4182d18b0c2698263, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firePoint: {fileID: 5506393195113360028}
