@@ -4,7 +4,7 @@ using UnityEngine;
 
     public class Enemy
     {
-        public int speed { get; set; }
+        public string name { get; set; }
+        public float speed { get; set; }
         public int size { get; set; }
-        public string HardDisk { get; set; }
     }

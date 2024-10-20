@@ -7,12 +7,10 @@ public class Builder : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
+        EnemyBuilder builder;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        builder = new RegularEnemy();
+
+
     }
 }
