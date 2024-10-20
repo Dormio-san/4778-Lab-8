@@ -1,36 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputManager : MonoBehaviour
+public class InputManager : Singleton<InputManager>
 {
-    // Creaete singleton reference for easy reference from other scripts.
-    public static InputManager instance;
-
     // Reference to the player input component.
     public static PlayerInput playerInput;
 
     // Inputs that will be referenced in other scripts to get their values and use them.
     public Vector2 moveInput { get; private set; }
+
     public bool attackInput { get; private set; }
     public bool restartInput { get; private set; }
     public bool quitInput { get; private set; }
 
     // Input actions in the controls action map.
     private InputAction moveAction;
+
     private InputAction attackAction;
     private InputAction restartAction;
     private InputAction quitAction;
 
     private void Awake()
     {
-        // Set singleton referene if it hasn't already been.
-        if (instance == null)
-        {
-            instance = this;
-        }
-
         // Assign playerInput reference.
         playerInput = GetComponent<PlayerInput>();
 
