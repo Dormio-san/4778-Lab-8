@@ -10,7 +10,7 @@ If the bullet exits the screen or hits an enemy, it is set to not active and awa
 To implement the builder design pattern, we created first created an enemy script that sets and gets the necessary information for the enemy. In this case it was the number of points it has, and the speed.  We then created an EnemyBuilder script that creates the interface for the enemy, such as assigning its speed and points. We also had to create two scripts for the different enemy types 
 that use the same interface to assign these values. We then created a builder script that assigns the type of enemy based on its tag, and calls the necessary classes and interfaces for either enemy type. This also led to the creation of the Shop script which is called in the Builder script, where depending on the type of EnemyBuilder is used, will assign the values based on a method call 
 to the BuildPoints and BuildSpeed scripts.
-![Builder Design Pattern Diagram](<Builder Diagram.jpg>)
+![Builder Design Pattern Diagram](<Diagrams/Builder Diagram.jpg>)
 
 ## Observer Design Pattern
 To implement the observer design pattern, we began by making an interface for the observers, and another one for the object being observed (subject). Our UI elements, for example score, derive from the IObserver interface, and attach themselves to the subject (the player). The score UI script implements an OnNotify function that runs code whenever the object has been notified by the player.
