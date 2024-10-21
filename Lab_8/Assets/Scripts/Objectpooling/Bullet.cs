@@ -23,9 +23,11 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("enemy"))
+        EnemyBuilder enemy = other.gameObject.GetComponent<EnemyBuilder>();
+
+        if (enemy != null)
         {
             Debug.Log("enemy");
             DeactivateBullet();

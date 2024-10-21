@@ -3,6 +3,9 @@ using UnityEngine;
 public class PlayerShoot : MonoBehaviour
 {
     [SerializeField] private Transform firePoint;
+    
+    // Reference to the Player script.
+    private Player player => GetComponent<Player>();
 
     // Update is called once per frame
     private void Update()
