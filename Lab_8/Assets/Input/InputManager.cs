@@ -13,13 +13,15 @@ public class InputManager : Singleton<InputManager>
     public bool restartInput { get; private set; }
     public bool quitInput { get; private set; }
 
-    // Input actions in the controls action map.
+    // Input actions in the controls input action asset.
+    // More specifically, the Player map.
     private InputAction moveAction;
 
     private InputAction attackAction;
     private InputAction restartAction;
     private InputAction quitAction;
 
+    // Input actions in the UI map.
     private InputAction restartActionUI;
     private InputAction quitActionUI;
 

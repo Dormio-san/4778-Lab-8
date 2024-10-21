@@ -56,6 +56,7 @@ public class Player : MonoBehaviour, ISubject
         playerHealth.ChangeHealth(healthChange);
         Notify();
 
+        // If the health is at or below 0, notify the game over observer, which ends the game.
         if (playerHealth.Health <= 0)
         {
             gameOverObserver.OnNotify();

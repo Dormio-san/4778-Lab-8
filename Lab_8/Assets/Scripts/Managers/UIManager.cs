@@ -17,4 +17,14 @@ public class UIManager : MonoBehaviour
         // When the game begins, reset the player's score and health to their default values.
         player.BeginGameReset();
     }
+
+    private void Update()
+    {
+        // Testing key to decrease the player's health.
+        // This will most likely stay in because we don't take damage from anything in the game, but still want to see this function.
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            player.ChangeHealth(-1);
+        }
+    }
 }

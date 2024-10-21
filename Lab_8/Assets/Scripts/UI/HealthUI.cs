@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class HealthUI : MonoBehaviour, IObserver
 {
+    // Assign the healthText variable to the TextMeshProUGUI component on the same GameObject.
     private TextMeshProUGUI healthText => GetComponent<TextMeshProUGUI>();
     private Player player;
 

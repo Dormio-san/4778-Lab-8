@@ -12,6 +12,7 @@ public class PlayerHealth
     {
         health += healthChange;
 
+        // Cap the health at 0 so it can't go negative.
         if (health < 0)
         {
             health = 0;
