@@ -1,6 +1,9 @@
 # 4778-Lab-8
 Carnival shooting game that utilizes the object pool, builder, and observer design patterns.
 
+## Demo
+<video controls src="Lab8_Demo-1.mp4" title="Title"></video>
+
 ## Object Pool Design Pattern
 To implement the object pool design pattern, we first created a script that creates a new object pool when the game begins. The object pool defines things such as what to spawn, what to do when the object is gotten or released, the pool size, and more. With the pool created, we spawn five bullets to begin with.  
 When the player presses the fire button, we get a bullet from the pool, place it at the firing point (just above the player), and set it active. If there is no bullet in the pool, a new one is spawned and added to the pool. Once the bullet is active, it begins moving upwards.  
