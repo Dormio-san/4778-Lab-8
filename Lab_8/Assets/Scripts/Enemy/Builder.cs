@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +12,9 @@ public class Builder : MonoBehaviour
     private int score;
     private EnemyBuilder builder;
     private Shop shop;
+
+    // Score of the enemy that can be accessed by other scripts.
+    public int Score => builder.getScore();
 
     // Start is called before the first frame update
     private void Start()
@@ -31,7 +31,6 @@ public class Builder : MonoBehaviour
             builder = new BigEnemy();
             shop.Construct(builder);
         }
-
         /*enemy = enemy.GetComponent<GameObject>();*/
     }
 

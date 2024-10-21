@@ -15,6 +15,11 @@ public class PlayerShoot : MonoBehaviour, IObserver
         player.ChangeScore(scoreChangeValue);
     }
 
+    public void SetScoreChangeValue(int newScoreChangeValue)
+    {
+        scoreChangeValue = newScoreChangeValue;
+    }
+
     private void Update()
     {
         if (InputManager.instance.attackInput)

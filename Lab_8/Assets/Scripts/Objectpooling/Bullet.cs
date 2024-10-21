@@ -10,8 +10,9 @@ public class Bullet : MonoBehaviour, ISubject
     private float maxdDistance = 10f;
     public System.Action<Bullet> OnDeactivated;
 
-    // The observer that is attached to this bullet.
+    // The PlayerShoot observer that is attached to this bullet and its script.
     private IObserver playerShootObserver;
+    private PlayerShoot playerShoot;
 
     // Attach (add) an observer to the list of observers.
     public void Attach(IObserver observer)
@@ -19,9 +20,11 @@ public class Bullet : MonoBehaviour, ISubject
         observers.Add(observer);
 
         // If the observer that attches itseslf to this bullet is the PlayerShoot, then set the playerShootObserver to this observer.
+        // Also, get the PlayerShoot script from the observer and set it to the playerShoot variable.
         if (observer is PlayerShoot)
         {
             playerShootObserver = observer;
+            playerShoot = (PlayerShoot)playerShootObserver;
         }
     }
 
@@ -42,7 +45,10 @@ public class Bullet : MonoBehaviour, ISubject
 
     private void Update()
     {
+        // Move the bullet up.
         transform.Translate(Vector3.up * speed * Time.deltaTime);
+
+        // If the bullet goes outside the screen, deactivate it.
         if (transform.position.y >= maxdDistance)
         {
             DeactivateBullet();
@@ -67,6 +73,9 @@ public class Bullet : MonoBehaviour, ISubject
 
         if (enemy != null)
         {
+            // Set the PlayerShoot's score change value to the score the enemy gives.
+            playerShoot.SetScoreChangeValue(enemy.Score);
+
             // Notify observers and deactivate the bullet.
             Notify();
             DeactivateBullet();
