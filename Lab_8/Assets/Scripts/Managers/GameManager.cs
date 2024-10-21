@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     {
         string currentScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentScene);
-        Debug.Log($"Restarted {currentScene} scene.");
+        //Debug.Log($"Restarted {currentScene} scene.");
     }
 
     // Quits the game.

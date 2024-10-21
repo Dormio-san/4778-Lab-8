@@ -6,23 +6,25 @@ using UnityEngine.UI;
 
 public class Builder : MonoBehaviour
 {
+    // If enemy goes outside the boundary, spawn them at the other end.
+    private float screenBoundary = 10f;
+
     public GameObject enemy;
 
-    Text text;
-    int score;
-    EnemyBuilder builder;
-    Shop shop;
+    private Text text;
+    private int score;
+    private EnemyBuilder builder;
+    private Shop shop;
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-       
         if (gameObject.CompareTag("Regular Enemy"))
         {
             shop = new Shop();
             builder = new RegularEnemy();
             shop.Construct(builder);
         }
-        
         else if (gameObject.CompareTag("Big Enemy"))
         {
             shop = new Shop();
@@ -31,38 +33,24 @@ public class Builder : MonoBehaviour
         }
 
         /*enemy = enemy.GetComponent<GameObject>();*/
-       
-
-
-
-
-
-
-
-
     }
+
     private void FixedUpdate()
     {
         float speed = builder.getSpeed();
-        enemy.transform.position = new Vector3(transform.position.x + speed * Time.deltaTime, transform.position.y, transform.position.z);
+        enemy.transform.position = new Vector3(transform.position.x + speed * Time.deltaTime, transform.position.y, 0);
 
-        if(enemy.transform.position.x > 8)
+        if (enemy.transform.position.x > screenBoundary)
         {
-            enemy.transform.position = new Vector3(-8 + speed * Time.deltaTime, transform.position.y, transform.position.z);
+            enemy.transform.position = new Vector3(-screenBoundary + speed * Time.deltaTime, transform.position.y, 0);
         }
     }
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Destroy(enemy);
-        Debug.Log("hello");
+        //Debug.Log("hello");
         score += builder.getScore();
-        Debug.Log(score);
-
-        
-
-
-
+        //Debug.Log(score);
     }
 }
