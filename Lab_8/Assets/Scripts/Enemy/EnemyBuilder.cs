@@ -16,6 +16,10 @@ public abstract class EnemyBuilder
     {
         return enemyType.size;
     }
+    public float getSpeed()
+    {
+        return enemyType.speed;
+    }
 
 
     //The speed of the object

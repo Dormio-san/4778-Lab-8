@@ -30,8 +30,7 @@ public class Builder : MonoBehaviour
         }
 
         enemy = enemy.GetComponent<GameObject>();
-        score += builder.getScore();
-        Debug.Log(score);
+       
 
 
 
@@ -45,9 +44,12 @@ public class Builder : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        score += builder.getScore();
+        Debug.Log(score);
 
-        
-        
+        Destroy(enemy);
+
+
+
     }
 }
