@@ -45,6 +45,11 @@ public class Builder : MonoBehaviour
     {
         float speed = builder.getSpeed();
         enemy.transform.position = new Vector3(transform.position.x + speed * Time.deltaTime, transform.position.y, transform.position.z);
+
+        if(enemy.transform.position.x > 8)
+        {
+            enemy.transform.position = new Vector3(-8 + speed * Time.deltaTime, transform.position.y, transform.position.z);
+        }
     }
 
 
