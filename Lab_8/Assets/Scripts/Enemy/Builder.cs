@@ -1,16 +1,53 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Builder : MonoBehaviour
 {
+    public GameObject enemy;
+
+    Text text;
+    int score;
+    EnemyBuilder builder;
+    Shop shop;
     // Start is called before the first frame update
     void Start()
     {
-        EnemyBuilder builder;
+       
+        if (gameObject.CompareTag("Regular Enemy"))
+        {
+            shop = new Shop();
+            builder = new RegularEnemy();
+            shop.Construct(builder);
+        }
+        
+        else if (gameObject.CompareTag("Big Enemy"))
+        {
+            shop = new Shop();
+            builder = new BigEnemy();
+            shop.Construct(builder);
+        }
 
-        builder = new RegularEnemy();
+        enemy = enemy.GetComponent<GameObject>();
+        score += builder.getScore();
+        Debug.Log(score);
 
 
+
+
+
+
+
+
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        
+
+        
+        
     }
 }

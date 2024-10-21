@@ -12,6 +12,12 @@ public abstract class EnemyBuilder
     }
 
 
+    public int getScore()
+    {
+        return enemyType.size;
+    }
+
+
     //The speed of the object
     public abstract void BuildSpeed();
 
