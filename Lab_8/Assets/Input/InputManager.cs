@@ -20,6 +20,9 @@ public class InputManager : Singleton<InputManager>
     private InputAction restartAction;
     private InputAction quitAction;
 
+    private InputAction restartActionUI;
+    private InputAction quitActionUI;
+
     private void Awake()
     {
         // Assign playerInput reference.
@@ -42,6 +45,10 @@ public class InputManager : Singleton<InputManager>
         attackAction = playerInput.actions["Attack"];
         restartAction = playerInput.actions["Restart"];
         quitAction = playerInput.actions["Quit"];
+
+        // UI input actions.
+        restartActionUI = playerInput.actions["RestartUI"];
+        quitActionUI = playerInput.actions["QuitUI"];
     }
 
     private void UpdateInputs()
@@ -52,7 +59,7 @@ public class InputManager : Singleton<InputManager>
 
         // Below actions check if the user has pressed the button.
         attackInput = attackAction.WasPressedThisFrame();
-        restartInput = restartAction.WasPressedThisFrame();
-        quitInput = quitAction.WasPressedThisFrame();
+        restartInput = restartAction.WasPressedThisFrame() || restartActionUI.WasPressedThisFrame();
+        quitInput = quitAction.WasPressedThisFrame() || quitActionUI.WasPressedThisFrame();
     }
 }
