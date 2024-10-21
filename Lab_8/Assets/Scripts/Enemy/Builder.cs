@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,7 +30,7 @@ public class Builder : MonoBehaviour
             shop.Construct(builder);
         }
 
-        enemy = enemy.GetComponent<GameObject>();
+        /*enemy = enemy.GetComponent<GameObject>();*/
        
 
 
@@ -39,6 +40,16 @@ public class Builder : MonoBehaviour
 
 
 
+    }
+    private void FixedUpdate()
+    {
+        float speed = builder.getSpeed();
+        enemy.transform.position = new Vector3(transform.position.x + speed * Time.deltaTime, transform.position.y, transform.position.z);
+
+        if(enemy.transform.position.x > 8)
+        {
+            enemy.transform.position = new Vector3(-8 + speed * Time.deltaTime, transform.position.y, transform.position.z);
+        }
     }
 
 
