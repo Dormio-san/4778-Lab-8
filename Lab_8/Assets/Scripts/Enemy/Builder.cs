@@ -44,10 +44,12 @@ public class Builder : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Destroy(enemy);
+        Debug.Log("hello");
         score += builder.getScore();
         Debug.Log(score);
 
-        Destroy(enemy);
+        
 
 
 
