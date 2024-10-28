@@ -2,20 +2,13 @@ using LitJson;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player :SaveableBehaviour, ISubject 
+public class Player :TransformSave, ISubject 
 {
     private List<IObserver> observers = new List<IObserver>();
     public PlayerScore playerScore { get; private set; }
     public PlayerHealth playerHealth { get; private set; }
     private IObserver gameOverObserver;
-    [SerializeField]
-    private TransformSave transformSave;
-
-    void Awake()
-    {
-       
-        transformSave = transformSave.GetComponent<TransformSave>(); // Ensure this component is attached
-    }
+   
 
     // Constructor to initialize the player's score and health.
     public Player()
@@ -80,30 +73,29 @@ public class Player :SaveableBehaviour, ISubject
         Notify();
     }
 
-  //  public override string SaveID => transformSave.SaveID;
+    public override string SaveID
+    {
+        get => base.SaveID; // Access the inherited SaveID property directly
+        set => base.SaveID = value;
+    }
 
     public override JsonData SavedData
     {
         get
         {
-            OnBeforeSerialize();
             // Use TransformSave to get saved data
-            return transformSave.SavedData;
+            return base.SavedData;
         }
     }
 
-    // public override string SaveID { get => transformSave.SaveID; set => transformSave.SaveID = value; }
-    public override string SaveID
-    {
-        get => transformSave.SaveID;
-        set => transformSave.SaveID = value;
-    }
+    // public override string SaveID { get => transformSave.SaveID; set => transformSave.SaveID = value; }s
+    
 
     // Implementing LoadFromData from ISaveable
     public override void LoadFromData(JsonData data)
     {
         
-        transformSave.LoadFromData(data);
+        base.LoadFromData(data);
     }
     
 }

@@ -22,13 +22,13 @@ public class GameManager : MonoBehaviour
         {
             Quit();
         }
-        if (InputManager.instance.saveInput) // Check for the save input
+        if (Input.GetKeyDown(KeyCode.S)) // Check for the save input
         {
             SavingService.SaveGame("player_save.json"); // Save the game
             Debug.Log("Game saved.");
         }
 
-        if (InputManager.instance.loadInput) // Check for the load input
+        if (Input.GetKeyDown(KeyCode.L)) // Check for the load input
         {
             if (SavingService.LoadGame("player_save.json")) // Load the game
             {
