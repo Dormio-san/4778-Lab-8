@@ -77,104 +77,107 @@ public class SavingService
 /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public static bool LoadGame(string fileName) 
-    {
-        var dataPath = Path.Combine(Application.persistentDataPath, fileName);
-        if (File.Exists(dataPath) == false) 
-        { 
-            Debug.LogErrorFormat("No file exists at {0}", dataPath); 
-            return false; 
-        }
+{
+    var dataPath = Path.Combine(Application.persistentDataPath, fileName);
+    if (File.Exists(dataPath) == false) 
+    { 
+        Debug.LogErrorFormat("No file exists at {0}", dataPath); 
+        return false; 
+    }
 
-        var text = File.ReadAllText(dataPath);
-        var data = JsonMapper.ToObject(text);
+    var text = File.ReadAllText(dataPath);
+    var data = JsonMapper.ToObject(text);
     
-        if (data == null || data.IsObject == false) 
-        { 
-            Debug.LogErrorFormat("Data at {0} is not a JSON object", dataPath); 
-            return false; 
-        }
+    if (data == null || data.IsObject == false) 
+    { 
+        Debug.LogErrorFormat("Data at {0} is not a JSON object", dataPath); 
+        return false; 
+    }
 
-        if (!data.ContainsKey(SCENES_KEY)) 
-        { 
-            Debug.LogWarningFormat("Data at {0} does not contain any scenes; not loading any!", dataPath); 
-            return false; 
-        }
+    if (!data.ContainsKey(SCENES_KEY)) 
+    { 
+        Debug.LogWarningFormat("Data at {0} does not contain any scenes; not loading any!", dataPath); 
+        return false; 
+    }
 
-        var scenes = data[SCENES_KEY];
-        int sceneCount = scenes.Count;
+    var scenes = data[SCENES_KEY];
+    int sceneCount = scenes.Count;
 
-        if (sceneCount == 0) 
-        { 
-            Debug.LogWarningFormat("Data at {0} doesn't specify any scenes to load.", dataPath); 
-            return false; 
-        }
+    if (sceneCount == 0) 
+    { 
+        Debug.LogWarningFormat("Data at {0} doesn't specify any scenes to load.", dataPath); 
+        return false; 
+    }
 
-        for (int i = 0; i < sceneCount; i++) 
-        {
-            var scene = (string)scenes[i];
+    for (int i = 0; i < sceneCount; i++) 
+    {
+        var scene = (string)scenes[i];
         
-            if (i == 0) 
-            { 
-                SceneManager.LoadScene(scene, LoadSceneMode.Single); 
-            } 
-            else 
-            { 
-                SceneManager.LoadScene(scene, LoadSceneMode.Additive); 
-            } 
-        }
-
-        if (data.ContainsKey(ACTIVE_SCENE_KEY)) 
-        {
-            var activeSceneName = (string)data[ACTIVE_SCENE_KEY];
-            var activeScene = SceneManager.GetSceneByName(activeSceneName);
-        
-            if (activeScene.IsValid() == false) 
-            {
-                Debug.LogErrorFormat("Data at {0} specifies an active scene that doesn't exist. Stopping loading here.", dataPath); 
-                return false; 
-            }
-
-            SceneManager.SetActiveScene(activeScene);
+        if (i == 0) 
+        { 
+            SceneManager.LoadScene(scene, LoadSceneMode.Single); 
         } 
         else 
-        {
-            Debug.LogWarningFormat("Data at {0} does not specify an active scene.", dataPath); 
-        }
-
-        if (data.ContainsKey(OBJECTS_KEY)) 
-        {
-            var objects = data[OBJECTS_KEY];
-    
-            // Assigning a proper function to LoadObjectsAfterSceneLoad
-            LoadObjectsAfterSceneLoad = (scene, loadSceneMode) => 
-            {
-                // This block will execute after scenes are loaded.
-                var allLoadableObjects = Object.FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>().ToDictionary(o => o.SaveID, o => o);
-                var objectsCount = objects.Count;
-
-                for (int i = 0; i < objectsCount; i++) 
-                {
-                    var objectData = objects[i];
-                    var saveID = (string)objectData[SAVEID_KEY];
-
-                    if (allLoadableObjects.ContainsKey(saveID)) 
-                    {
-                        var loadableObject = allLoadableObjects[saveID];
-                        loadableObject.LoadFromData(objectData);
-                    }
-                }
-                SceneManager.sceneLoaded-= LoadObjectsAfterSceneLoad;
-                LoadObjectsAfterSceneLoad = null;
-                System.GC.Collect();
-            };
-
-        // Subscribe to the sceneLoaded event
-        SceneManager.sceneLoaded += LoadObjectsAfterSceneLoad;
-        }
-
-    
-        return true;
+        { 
+            SceneManager.LoadScene(scene, LoadSceneMode.Additive); 
+        } 
     }
+
+    if (data.ContainsKey(ACTIVE_SCENE_KEY)) 
+    {
+        var activeSceneName = (string)data[ACTIVE_SCENE_KEY];
+        var activeScene = SceneManager.GetSceneByName(activeSceneName);
+        
+        if (activeScene.IsValid() == false) 
+        {
+            Debug.LogErrorFormat("Data at {0} specifies an active scene that doesn't exist. Stopping loading here.", dataPath); 
+            return false; 
+        }
+
+        SceneManager.SetActiveScene(activeScene);
+    } 
+    else 
+    {
+        Debug.LogWarningFormat("Data at {0} does not specify an active scene.", dataPath); 
+    }
+
+    if (data.ContainsKey(OBJECTS_KEY)) 
+    {
+        var objects = data[OBJECTS_KEY];
+    
+    // Assigning a proper function to LoadObjectsAfterSceneLoad
+    LoadObjectsAfterSceneLoad = (scene, loadSceneMode) => 
+    {
+        var objectsCount = objects.Count;
+
+        for (int i = 0; i < objectsCount; i++) 
+        {
+            var objectData = objects[i];
+            var saveID = (string)objectData[SAVEID_KEY];
+
+            // This block will execute after scenes are loaded.
+            var allLoadableObjects = Object.FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>().ToDictionary(o => o.SaveID, o => o);
+        foreach(var saveid in allLoadableObjects)
+            {
+                if (allLoadableObjects.ContainsKey(saveID))
+                {
+                    var loadableObject = allLoadableObjects[saveID];
+                    loadableObject.LoadFromData(objectData);
+                }
+            }
+        }
+        SceneManager.sceneLoaded-= LoadObjectsAfterSceneLoad;
+        LoadObjectsAfterSceneLoad = null;
+         System.GC.Collect();
+    };
+
+    // Subscribe to the sceneLoaded event
+    SceneManager.sceneLoaded += LoadObjectsAfterSceneLoad;
+    }
+
+    
+    return true;
+}
 
 
 }
