@@ -70,4 +70,5 @@ public class Player : MonoBehaviour, ISubject
         playerHealth.ResetHealth();
         Notify();
     }
+
 }

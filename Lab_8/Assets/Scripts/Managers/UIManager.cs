@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+    private const string SaveFileName = "gameSave.json";
     [SerializeField] private Player player;
     [SerializeField] private ScoreUI scoreUI;
     [SerializeField] private HealthUI healthUI;
@@ -26,5 +27,25 @@ public class UIManager : MonoBehaviour
         {
             player.ChangeHealth(-1);
         }
+
+        //To save game
+        if (Input.GetKeyDown(KeyCode.S)){
+            SavePlayerPosition();
+
+        }
+
+        //To load game
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadPlayerPosition();
+        }   
+    }
+    public void SavePlayerPosition()
+    {
+        SavingService.SaveGame(SaveFileName);
+    }
+    public void LoadPlayerPosition()
+    {
+        SavingService.LoadGame(SaveFileName);
     }
 }

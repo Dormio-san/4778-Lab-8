@@ -53,18 +53,4 @@ public class TransformSave : SaveableBehaviour
             transform.localScale = DeserializeValue<Vector3>(data[LOCAL_SCALE_KEY]);
         }
     }
-
-   
-    public void OnBeforeSerialize() 
-    {
-        if (_saveID == null) 
-        {
-            _saveID = System.Guid.NewGuid().ToString();
-        }
-    }
-
-    public void OnAfterDeserialize() 
-    {
-        // Any post-deserialization logic can go here
-    }
 }

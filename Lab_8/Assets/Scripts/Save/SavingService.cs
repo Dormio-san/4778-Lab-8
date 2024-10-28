@@ -22,6 +22,7 @@ public class SavingService
     {
         var result = new JsonData(); // Create an empty JSON data object.
         var allSaveableObjects = Object.FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>(); // Get all ISaveable objects in the scene.
+        Debug.Log("Saveable objects count: " + allSaveableObjects.Count());
 
         if (allSaveableObjects.Count() > 0) // Check if there are any saveable objects.
         {
@@ -78,6 +79,7 @@ public class SavingService
 /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public static bool LoadGame(string fileName) 
     {
+
         var dataPath = Path.Combine(Application.persistentDataPath, fileName);
         if (File.Exists(dataPath) == false) 
         { 
@@ -94,12 +96,12 @@ public class SavingService
             return false; 
         }
 
-        if (!data.ContainsKey(SCENES_KEY)) 
+        if (!data.ContainsKey("scenes")) 
         { 
             Debug.LogWarningFormat("Data at {0} does not contain any scenes; not loading any!", dataPath); 
             return false; 
         }
-
+        
         var scenes = data[SCENES_KEY];
         int sceneCount = scenes.Count;
 
@@ -109,28 +111,31 @@ public class SavingService
             return false; 
         }
 
-        for (int i = 0; i < sceneCount; i++) 
+        for (int i = 0; i < sceneCount; i++)
         {
             var scene = (string)scenes[i];
-        
-            if (i == 0) 
-            { 
-                SceneManager.LoadScene(scene, LoadSceneMode.Single); 
-            } 
-            else 
-            { 
-                SceneManager.LoadScene(scene, LoadSceneMode.Additive); 
-            } 
+
+            if (i == 0)
+            {
+                SceneManager.LoadScene(scene, LoadSceneMode.Single);
+                
+            }
+            else
+            {
+                SceneManager.LoadScene(scene, LoadSceneMode.Additive);
+            }
         }
 
         if (data.ContainsKey(ACTIVE_SCENE_KEY)) 
         {
+            
             var activeSceneName = (string)data[ACTIVE_SCENE_KEY];
             var activeScene = SceneManager.GetSceneByName(activeSceneName);
         
             if (activeScene.IsValid() == false) 
             {
-                Debug.LogErrorFormat("Data at {0} specifies an active scene that doesn't exist. Stopping loading here.", dataPath); 
+                Debug.LogErrorFormat("Data at {0} specifies an active scene that doesn't exist. Stopping loading here.", dataPath);
+                
                 return false; 
             }
 
@@ -143,22 +148,26 @@ public class SavingService
 
         if (data.ContainsKey(OBJECTS_KEY)) 
         {
+            
             var objects = data[OBJECTS_KEY];
     
             // Assigning a proper function to LoadObjectsAfterSceneLoad
             LoadObjectsAfterSceneLoad = (scene, loadSceneMode) => 
             {
+                
                 // This block will execute after scenes are loaded.
                 var allLoadableObjects = Object.FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>().ToDictionary(o => o.SaveID, o => o);
                 var objectsCount = objects.Count;
-
+                Debug.Log("Loadable objects count: " + objectsCount);
                 for (int i = 0; i < objectsCount; i++) 
                 {
+                    
                     var objectData = objects[i];
                     var saveID = (string)objectData[SAVEID_KEY];
 
                     if (allLoadableObjects.ContainsKey(saveID)) 
                     {
+                        
                         var loadableObject = allLoadableObjects[saveID];
                         loadableObject.LoadFromData(objectData);
                     }
@@ -169,7 +178,12 @@ public class SavingService
             };
 
         // Subscribe to the sceneLoaded event
-        SceneManager.sceneLoaded += LoadObjectsAfterSceneLoad;
+            SceneManager.sceneLoaded += LoadObjectsAfterSceneLoad;
+        }
+
+        if(LoadObjectsAfterSceneLoad == null)
+        {
+            Debug.LogErrorFormat("Hi");
         }
 
     

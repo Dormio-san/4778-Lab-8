@@ -5,6 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private float speed = 4.5f;
     private float screenBoundary = 9f;
+    public TransformSave TransformSave;
 
     private void Update()
     {
