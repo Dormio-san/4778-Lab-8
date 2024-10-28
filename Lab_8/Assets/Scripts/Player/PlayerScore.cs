@@ -1,6 +1,6 @@
 public class PlayerScore
 {
-    private int score = 0;
+    private static int score = 0;
 
     public int Score
     {

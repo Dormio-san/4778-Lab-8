@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     {
         string currentScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentScene);
+        player.BeginGameReset();
         //Debug.Log($"Restarted {currentScene} scene.");
     }
 

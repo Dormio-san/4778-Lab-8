@@ -64,7 +64,7 @@ public class Player : TransformSave, ISubject
         }
     }
 
-    // Used when game begins to reset the score and health to 0 and 3, respectively.
+    // Used when game restarts or begins for the first time to reset the score and health to 0 and 3, respectively.
     public void BeginGameReset()
     {
         playerScore.ResetScore();

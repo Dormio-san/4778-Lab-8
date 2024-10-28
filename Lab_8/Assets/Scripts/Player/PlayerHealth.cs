@@ -1,6 +1,6 @@
 public class PlayerHealth
 {
-    private int health = 3;
+    private static int health = 3;
 
     public int Health
     {

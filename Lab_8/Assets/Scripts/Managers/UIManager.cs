@@ -13,9 +13,6 @@ public class UIManager : MonoBehaviour
         scoreUI.Initialize(player);
         healthUI.Initialize(player);
         gameOverUI.Initialize(player);
-
-        // When the game begins, reset the player's score and health to their default values.
-        player.BeginGameReset();
     }
 
     private void Update()
