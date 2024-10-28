@@ -1,16 +1,12 @@
-
-
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using LitJson;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class SavingService
 {
-
     private const string ACTIVE_SCENE_KEY = "activeScene";
     private const string SCENES_KEY = "scenes";
     private const string OBJECTS_KEY = "objects";
@@ -79,7 +75,6 @@ public class SavingService
     /// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public static bool LoadGame(string fileName)
     {
-
         var dataPath = Path.Combine(Application.persistentDataPath, fileName);
         if (File.Exists(dataPath) == false)
         {
@@ -118,7 +113,6 @@ public class SavingService
             if (i == 0)
             {
                 SceneManager.LoadScene(scene, LoadSceneMode.Single);
-
             }
             else
             {
@@ -128,7 +122,6 @@ public class SavingService
 
         if (data.ContainsKey(ACTIVE_SCENE_KEY))
         {
-
             var activeSceneName = (string)data[ACTIVE_SCENE_KEY];
             var activeScene = SceneManager.GetSceneByName(activeSceneName);
 
@@ -148,26 +141,22 @@ public class SavingService
 
         if (data.ContainsKey(OBJECTS_KEY))
         {
-
             var objects = data[OBJECTS_KEY];
 
             // Assigning a proper function to LoadObjectsAfterSceneLoad
             LoadObjectsAfterSceneLoad = (scene, loadSceneMode) =>
             {
-
                 // This block will execute after scenes are loaded.
                 var allLoadableObjects = Object.FindObjectsOfType<MonoBehaviour>().OfType<ISaveable>().ToDictionary(o => o.SaveID, o => o);
                 var objectsCount = objects.Count;
                 Debug.Log("Loadable objects count: " + objectsCount);
                 for (int i = 0; i < objectsCount; i++)
                 {
-
                     var objectData = objects[i];
                     var saveID = (string)objectData[SAVEID_KEY];
 
                     if (allLoadableObjects.ContainsKey(saveID))
                     {
-
                         var loadableObject = allLoadableObjects[saveID];
                         loadableObject.LoadFromData(objectData);
                     }
@@ -186,9 +175,46 @@ public class SavingService
             Debug.LogErrorFormat("Hi");
         }
 
-
         return true;
     }
 
+    // Save the game to a binary file (used for score and health).
+    public static void SaveGameBinary(string fileName, Player player)
+    {
+        // Create a new file and write the player's health and score into it.
+        string path = Path.Combine(Application.persistentDataPath, fileName);
+        using (BinaryWriter writer = new BinaryWriter(File.Open(path, FileMode.Create)))
+        {
+            writer.Write(player.playerHealth.Health);
+            writer.Write(player.playerScore.Score);
+        }
 
+        Debug.Log($"Binary data saved to {path}");
+    }
+
+    // Load the game from a binary file (user for score and health).
+    public static bool LoadGameBinary(string fileName, Player player)
+    {
+        // Check if the file exists
+        string path = Path.Combine(Application.persistentDataPath, fileName);
+        if (File.Exists(path))
+        {
+            // If it does, open it and read the data
+            using (BinaryReader reader = new BinaryReader(File.Open(path, FileMode.Open)))
+            {
+                // Set the health and score to the values read from the file.
+                // Notify observers so the UI can update.
+                player.playerHealth.Health = reader.ReadInt32();
+                player.playerScore.Score = reader.ReadInt32();
+                player.Notify();
+            }
+            Debug.Log($"Binary data loaded from {path}");
+            return true;
+        }
+        else
+        {
+            Debug.Log($"No save file found at {path}");
+            return false;
+        }
+    }
 }

@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
+    [SerializeField] private Player player;
 
     private void Update()
     {
@@ -25,18 +25,17 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S)) // Check for the save input
         {
             SavingService.SaveGame("player_save.json"); // Save the game
+            SavingService.SaveGameBinary("player_save_binary.json", player);
             Debug.Log("Game saved.");
         }
 
         if (Input.GetKeyDown(KeyCode.L)) // Check for the load input
         {
-            if (SavingService.LoadGame("player_save.json")) // Load the game
+            if (SavingService.LoadGame("player_save.json") && SavingService.LoadGameBinary("player_save_binary.json", player)) // Load the game
             {
                 Debug.Log("Game loaded.");
             }
         }
-
-
     }
 
     // Reloads the current scene that the player is in.

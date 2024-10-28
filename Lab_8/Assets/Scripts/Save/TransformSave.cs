@@ -9,23 +9,21 @@ public class TransformSave : SaveableBehaviour
     private const string LOCAL_ROTATION_KEY = "localRotation";
     private const string LOCAL_SCALE_KEY = "localScale";
     private const string LOCAL_SAVEID_KEY = "$saveID";
-   
 
     private JsonData SerializeValue(object obj)
-     {
-         return JsonMapper.ToObject(JsonUtility.ToJson(obj));
-     }
+    {
+        return JsonMapper.ToObject(JsonUtility.ToJson(obj));
+    }
 
     private T DeserializeValue<T>(JsonData data)
     {
         return JsonUtility.FromJson<T>(data.ToJson());
     }
- 
+
     public override JsonData SavedData
     {
         get
         {
-            
             var result = new JsonData();
             result[LOCAL_POSITION_KEY] = SerializeValue(transform.localPosition);
             result[LOCAL_ROTATION_KEY] = SerializeValue(transform.localRotation);
@@ -35,9 +33,8 @@ public class TransformSave : SaveableBehaviour
         }
     }
 
-     public override void LoadFromData(JsonData data)
+    public override void LoadFromData(JsonData data)
     {
-        
         if (data.ContainsKey(LOCAL_POSITION_KEY))
         {
             transform.localPosition = DeserializeValue<Vector3>(data[LOCAL_POSITION_KEY]);
@@ -53,9 +50,6 @@ public class TransformSave : SaveableBehaviour
         if (data.ContainsKey(LOCAL_SAVEID_KEY))
         {
             SaveID = (string)data[LOCAL_SAVEID_KEY]; // Update the SaveID from the datas
-        } 
+        }
     }
-
-   
-   
 }
