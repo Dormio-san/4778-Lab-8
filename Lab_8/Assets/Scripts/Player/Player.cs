@@ -1,12 +1,21 @@
+using LitJson;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour, ISubject
+public class Player :SaveableBehaviour, ISubject 
 {
     private List<IObserver> observers = new List<IObserver>();
     public PlayerScore playerScore { get; private set; }
     public PlayerHealth playerHealth { get; private set; }
     private IObserver gameOverObserver;
+    [SerializeField]
+    private TransformSave transformSave;
+
+    void Awake()
+    {
+       
+        transformSave = transformSave.GetComponent<TransformSave>(); // Ensure this component is attached
+    }
 
     // Constructor to initialize the player's score and health.
     public Player()
@@ -56,6 +65,7 @@ public class Player : MonoBehaviour, ISubject
         playerHealth.ChangeHealth(healthChange);
         Notify();
 
+        // If the health is at or below 0, notify the game over observer, which ends the game.
         if (playerHealth.Health <= 0)
         {
             gameOverObserver.OnNotify();
@@ -69,4 +79,31 @@ public class Player : MonoBehaviour, ISubject
         playerHealth.ResetHealth();
         Notify();
     }
+
+  //  public override string SaveID => transformSave.SaveID;
+
+    public override JsonData SavedData
+    {
+        get
+        {
+            OnBeforeSerialize();
+            // Use TransformSave to get saved data
+            return transformSave.SavedData;
+        }
+    }
+
+    // public override string SaveID { get => transformSave.SaveID; set => transformSave.SaveID = value; }
+    public override string SaveID
+    {
+        get => transformSave.SaveID;
+        set => transformSave.SaveID = value;
+    }
+
+    // Implementing LoadFromData from ISaveable
+    public override void LoadFromData(JsonData data)
+    {
+        
+        transformSave.LoadFromData(data);
+    }
+    
 }

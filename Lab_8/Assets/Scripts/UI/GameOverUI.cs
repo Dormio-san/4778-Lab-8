@@ -18,6 +18,7 @@ public class GameOverUI : MonoBehaviour, IObserver
 
     private void GameOver()
     {
+        // Turn on the game over display and switch the input to the UI input map, which disables user's in-game actions.
         gameOverDisplay.SetActive(true);
         InputManager.playerInput.SwitchCurrentActionMap("UI");
     }

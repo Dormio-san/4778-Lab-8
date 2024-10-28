@@ -13,7 +13,7 @@ public class BigEnemy : EnemyBuilder
     //Assigns the speed of the enemy
     public override void BuildSpeed()
     {
-        enemyType.speed = 5.0f;
+        enemyType.speed = 1.5f;
 
     }
 

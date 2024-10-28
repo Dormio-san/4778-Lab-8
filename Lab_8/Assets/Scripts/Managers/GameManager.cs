@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+
+   
     private void Update()
     {
         InputCheck();
@@ -20,6 +22,21 @@ public class GameManager : MonoBehaviour
         {
             Quit();
         }
+        if (InputManager.instance.saveInput) // Check for the save input
+        {
+            SavingService.SaveGame("player_save.json"); // Save the game
+            Debug.Log("Game saved.");
+        }
+
+        if (InputManager.instance.loadInput) // Check for the load input
+        {
+            if (SavingService.LoadGame("player_save.json")) // Load the game
+            {
+                Debug.Log("Game loaded.");
+            }
+        }
+
+
     }
 
     // Reloads the current scene that the player is in.
@@ -27,7 +44,7 @@ public class GameManager : MonoBehaviour
     {
         string currentScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentScene);
-        Debug.Log($"Restarted {currentScene} scene.");
+        //Debug.Log($"Restarted {currentScene} scene.");
     }
 
     // Quits the game.

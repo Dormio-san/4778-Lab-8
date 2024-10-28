@@ -18,12 +18,12 @@ public class UIManager : MonoBehaviour
         player.BeginGameReset();
     }
 
-    // For testing the UI components and functions.
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.U))
+        // Testing key to decrease the player's health.
+        // This will most likely stay in because we don't take damage from anything in the game, but still want to see this function.
+        if (Input.GetKeyDown(KeyCode.L))
         {
-            player.ChangeScore(10);
             player.ChangeHealth(-1);
         }
     }

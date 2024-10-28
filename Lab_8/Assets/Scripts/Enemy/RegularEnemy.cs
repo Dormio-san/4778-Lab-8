@@ -12,7 +12,7 @@ public class RegularEnemy : EnemyBuilder
     // Start is called before the first frame update
     public override void BuildSpeed()
     {
-        enemyType.speed = 2.0f;
+        enemyType.speed = 0.5f;
 
     }
 
