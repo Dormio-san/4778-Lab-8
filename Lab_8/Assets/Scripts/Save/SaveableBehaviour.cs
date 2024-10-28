@@ -5,6 +5,7 @@ using UnityEngine;
 
 public abstract class SaveableBehaviour : MonoBehaviour, ISaveable, ISerializationCallbackReceiver
 {
+    [SerializeField]
     private string _saveID;
 
    
