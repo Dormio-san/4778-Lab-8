@@ -8,7 +8,8 @@ public class TransformSave : SaveableBehaviour
     private const string LOCAL_POSITION_KEY = "localPosition";
     private const string LOCAL_ROTATION_KEY = "localRotation";
     private const string LOCAL_SCALE_KEY = "localScale";
-    private string _saveID;
+    private const string LOCAL_SAVEID_KEY = "$saveID";
+   
 
     private JsonData SerializeValue(object obj)
      {
@@ -19,27 +20,24 @@ public class TransformSave : SaveableBehaviour
     {
         return JsonUtility.FromJson<T>(data.ToJson());
     }
-    public override string SaveID
-    {
-        get { return _saveID; }
-        set { _saveID = value; }
-    }
-
-
+ 
     public override JsonData SavedData
     {
         get
         {
+            
             var result = new JsonData();
             result[LOCAL_POSITION_KEY] = SerializeValue(transform.localPosition);
             result[LOCAL_ROTATION_KEY] = SerializeValue(transform.localRotation);
             result[LOCAL_SCALE_KEY] = SerializeValue(transform.localScale);
+            result[LOCAL_SAVEID_KEY] = SaveID;
             return result;
         }
     }
 
      public override void LoadFromData(JsonData data)
     {
+        
         if (data.ContainsKey(LOCAL_POSITION_KEY))
         {
             transform.localPosition = DeserializeValue<Vector3>(data[LOCAL_POSITION_KEY]);
@@ -52,19 +50,12 @@ public class TransformSave : SaveableBehaviour
         {
             transform.localScale = DeserializeValue<Vector3>(data[LOCAL_SCALE_KEY]);
         }
+        if (data.ContainsKey(LOCAL_SAVEID_KEY))
+        {
+            SaveID = (string)data[LOCAL_SAVEID_KEY]; // Update the SaveID from the datas
+        } 
     }
 
    
-    public void OnBeforeSerialize() 
-    {
-        if (_saveID == null) 
-        {
-            _saveID = System.Guid.NewGuid().ToString();
-        }
-    }
-
-    public void OnAfterDeserialize() 
-    {
-        // Any post-deserialization logic can go here
-    }
+   
 }
