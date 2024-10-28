@@ -1,12 +1,14 @@
+using LitJson;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour, ISubject
+public class Player : TransformSave, ISubject
 {
     private List<IObserver> observers = new List<IObserver>();
     public PlayerScore playerScore { get; private set; }
     public PlayerHealth playerHealth { get; private set; }
     private IObserver gameOverObserver;
+
 
     // Constructor to initialize the player's score and health.
     public Player()
@@ -70,4 +72,30 @@ public class Player : MonoBehaviour, ISubject
         playerHealth.ResetHealth();
         Notify();
     }
+
+    public override string SaveID
+    {
+        get => base.SaveID; // Access the inherited SaveID property directly
+        set => base.SaveID = value;
+    }
+
+    public override JsonData SavedData
+    {
+        get
+        {
+            // Use TransformSave to get saved data
+            return base.SavedData;
+        }
+    }
+
+    // public override string SaveID { get => transformSave.SaveID; set => transformSave.SaveID = value; }s
+
+
+    // Implementing LoadFromData from ISaveable
+    public override void LoadFromData(JsonData data)
+    {
+
+        base.LoadFromData(data);
+    }
+
 }

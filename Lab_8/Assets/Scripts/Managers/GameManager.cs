@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+
+
     private void Update()
     {
         InputCheck();
@@ -20,6 +22,21 @@ public class GameManager : MonoBehaviour
         {
             Quit();
         }
+        if (Input.GetKeyDown(KeyCode.S)) // Check for the save input
+        {
+            SavingService.SaveGame("player_save.json"); // Save the game
+            Debug.Log("Game saved.");
+        }
+
+        if (Input.GetKeyDown(KeyCode.L)) // Check for the load input
+        {
+            if (SavingService.LoadGame("player_save.json")) // Load the game
+            {
+                Debug.Log("Game loaded.");
+            }
+        }
+
+
     }
 
     // Reloads the current scene that the player is in.
