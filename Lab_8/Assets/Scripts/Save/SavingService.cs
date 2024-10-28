@@ -189,7 +189,7 @@ public class SavingService
             writer.Write(player.playerScore.Score);
         }
 
-        Debug.Log($"Binary data saved to {path}");
+        //Debug.Log($"Binary data saved to {path}");
     }
 
     // Load the game from a binary file (user for score and health).
@@ -208,7 +208,7 @@ public class SavingService
                 player.playerScore.Score = reader.ReadInt32();
                 player.Notify();
             }
-            Debug.Log($"Binary data loaded from {path}");
+            //Debug.Log($"Binary data loaded from {path}");
             return true;
         }
         else
