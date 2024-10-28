@@ -2,13 +2,18 @@ using LitJson;
 using System.Collections.Generic;
 using UnityEngine;
 
+<<<<<<< HEAD
 public class Player :TransformSave, ISubject 
+=======
+public class Player : TransformSave, ISubject
+>>>>>>> 23d6c16f2d3de0912ab03892da9cc205597fc3c9
 {
     private List<IObserver> observers = new List<IObserver>();
     public PlayerScore playerScore { get; private set; }
     public PlayerHealth playerHealth { get; private set; }
     private IObserver gameOverObserver;
    
+
 
     // Constructor to initialize the player's score and health.
     public Player()
@@ -79,6 +84,7 @@ public class Player :TransformSave, ISubject
         set => base.SaveID = value;
     }
 
+<<<<<<< HEAD
     public override JsonData SavedData => base.SavedData;
     
 
@@ -87,3 +93,25 @@ public class Player :TransformSave, ISubject
     
     
 }
+=======
+    public override JsonData SavedData
+    {
+        get
+        {
+            // Use TransformSave to get saved data
+            return base.SavedData;
+        }
+    }
+
+    // public override string SaveID { get => transformSave.SaveID; set => transformSave.SaveID = value; }s
+
+
+    // Implementing LoadFromData from ISaveable
+    public override void LoadFromData(JsonData data)
+    {
+
+        base.LoadFromData(data);
+    }
+
+}
+>>>>>>> 23d6c16f2d3de0912ab03892da9cc205597fc3c9
