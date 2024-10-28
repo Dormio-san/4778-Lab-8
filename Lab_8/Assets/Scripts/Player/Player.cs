@@ -79,23 +79,11 @@ public class Player :TransformSave, ISubject
         set => base.SaveID = value;
     }
 
-    public override JsonData SavedData
-    {
-        get
-        {
-            // Use TransformSave to get saved data
-            return base.SavedData;
-        }
-    }
-
-    // public override string SaveID { get => transformSave.SaveID; set => transformSave.SaveID = value; }s
+    public override JsonData SavedData => base.SavedData;
     
 
     // Implementing LoadFromData from ISaveable
-    public override void LoadFromData(JsonData data)
-    {
-        
-        base.LoadFromData(data);
-    }
+    public override void LoadFromData(JsonData data) => base.LoadFromData(data);
+    
     
 }

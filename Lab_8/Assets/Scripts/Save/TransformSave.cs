@@ -30,7 +30,7 @@ public class TransformSave : SaveableBehaviour
             result[LOCAL_POSITION_KEY] = SerializeValue(transform.localPosition);
             result[LOCAL_ROTATION_KEY] = SerializeValue(transform.localRotation);
             result[LOCAL_SCALE_KEY] = SerializeValue(transform.localScale);
-            result[LOCAL_SAVEID_KEY] = SerializeValue(SaveID);
+            result[LOCAL_SAVEID_KEY] = SaveID;
             return result;
         }
     }
@@ -52,8 +52,8 @@ public class TransformSave : SaveableBehaviour
         }
         if (data.ContainsKey(LOCAL_SAVEID_KEY))
         {
-            SaveID = (string)data[LOCAL_SAVEID_KEY]; // Update the SaveID from the data
-        }
+            SaveID = (string)data[LOCAL_SAVEID_KEY]; // Update the SaveID from the datas
+        } 
     }
 
    

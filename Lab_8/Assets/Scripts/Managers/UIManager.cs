@@ -22,9 +22,9 @@ public class UIManager : MonoBehaviour
     {
         // Testing key to decrease the player's health.
         // This will most likely stay in because we don't take damage from anything in the game, but still want to see this function.
-        /*if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.L))
         {
             player.ChangeHealth(-1);
-        }*/
+        }
     }
 }
