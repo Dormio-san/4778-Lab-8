@@ -18,10 +18,4 @@ public class PlayerScore
     {
         score = 0;
     }
-
-    // When loading a saved game, set the score to the saved score.
-    public void SetScore(int newScore)
-    {
-        score = newScore;
-    }
 }

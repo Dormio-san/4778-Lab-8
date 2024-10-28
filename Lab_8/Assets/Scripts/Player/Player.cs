@@ -1,6 +1,5 @@
 using LitJson;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class Player : TransformSave, ISubject
 {

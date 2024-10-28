@@ -24,10 +24,4 @@ public class PlayerHealth
     {
         health = 3;
     }
-
-    // When loading a saved game, set the health to the saved health.
-    public void SetHealth(int newHealth)
-    {
-        health = newHealth;
-    }
 }
