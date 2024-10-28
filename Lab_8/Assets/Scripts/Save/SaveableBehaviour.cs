@@ -10,8 +10,8 @@ public abstract class SaveableBehaviour : MonoBehaviour, ISaveable, ISerializati
    
     public virtual string SaveID
     {
-        get => _saveID;         
-        set => _saveID = value;
+        get => _saveID;
+        set => _saveID = value;  
     }
 
     public abstract JsonData SavedData { get;}
@@ -19,21 +19,28 @@ public abstract class SaveableBehaviour : MonoBehaviour, ISaveable, ISerializati
     public abstract void LoadFromData(JsonData data);
 
     public void OnBeforeSerialize()
-    {
-        if (SaveID==null)
+    { 
+        
+        if (string.IsNullOrEmpty(_saveID))
         {
-            SaveID = System.Guid.NewGuid().ToString(); // Generate a new ID if none exists
+            _saveID = System.Guid.NewGuid().ToString(); 
+           Debug.Log("Generated SaveIDs: " + _saveID);
+               
         }
+        
     }
     public void OnAfterDeserialize()
     {
+        Debug.LogWarning("OnAfterDeserialize is activated");
         // Perform any adjustments or checks after deserialization
-        if (string.IsNullOrEmpty(SaveID))
+        if (string.IsNullOrEmpty(_saveID))
         {
-            Debug.LogWarning("Deserialized object does not have a valid SaveID. now we create an ID");
-
+          
+            Debug.LogWarning("Deserialized object does not have a valid SaveID.");
+            _saveID = System.Guid.NewGuid().ToString();
 
         }
+        
     }
 }
 
