@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4953137973489356138}
   - component: {fileID: 1025248152753802286}
-  - component: {fileID: 7023721224554659904}
   - component: {fileID: 7658996526559182842}
+  - component: {fileID: 7023721224554659904}
   m_Layer: 0
   m_Name: TL_Creatures_66
   m_TagString: Big Enemy
@@ -86,19 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7023721224554659904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1318634064334684961}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd85abe802f3ab34595203928f78639b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemy: {fileID: 1318634064334684961}
 --- !u!61 &7658996526559182842
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -144,3 +131,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.32, y: 0.32}
   m_EdgeRadius: 0
+--- !u!114 &7023721224554659904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1318634064334684961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd85abe802f3ab34595203928f78639b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _saveID: b1b6a453-3493-4526-9e9e-85a8c503a5ae
+  enemy: {fileID: 1318634064334684961}

@@ -11,6 +11,7 @@ public class SavingService
     private const string SCENES_KEY = "scenes";
     private const string OBJECTS_KEY = "objects";
     private const string SAVEID_KEY = "$saveID";
+    private const string ENEMY_TYPE_KEY = "enemyType";
 
     public static UnityAction<Scene, LoadSceneMode> LoadObjectsAfterSceneLoad;
 
@@ -81,6 +82,9 @@ public class SavingService
             Debug.LogErrorFormat("No file exists at {0}", dataPath);
             return false;
         }
+
+        // If you're loading data, you don't need to spawn enemies.
+        InstantiateEnemies.beginSpawningEnemies = false;
 
         var text = File.ReadAllText(dataPath);
         var data = JsonMapper.ToObject(text);
@@ -159,6 +163,32 @@ public class SavingService
                     {
                         var loadableObject = allLoadableObjects[saveID];
                         loadableObject.LoadFromData(objectData);
+                    }
+                    else
+                    {
+                        GameObject enemyPrefab;
+
+                        // If the index is less than half of the objects count, spawn the first enemy type.
+                        if (i < objectsCount / 2)
+                        {
+                            enemyPrefab = InstantiateEnemies.staticEnemy1;
+                        }
+                        else
+                        {
+                            // Otherwise, spawn the second enemy type.
+                            enemyPrefab = InstantiateEnemies.staticEnemy2;
+                        }
+
+                        GameObject newEnemy = Object.Instantiate(enemyPrefab);
+
+                        // Set the save ID of the new enemy to the save ID from the data.
+                        newEnemy.GetComponent<Builder>().SaveID = saveID;
+
+                        // Load the data into the new enemy.
+                        var loadableObject = newEnemy.GetComponent<Builder>();
+                        loadableObject.LoadFromData(objectData);
+
+                        InstantiateEnemies.beginSpawningEnemies = true;
                     }
                 }
                 SceneManager.sceneLoaded -= LoadObjectsAfterSceneLoad;

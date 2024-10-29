@@ -34,6 +34,7 @@ public class Builder : TransformSave
         }
         /*enemy = enemy.GetComponent<GameObject>();*/
     }
+
     public override string SaveID
     {
         get => base.SaveID; // Access the inherited SaveID property directly
@@ -50,6 +51,7 @@ public class Builder : TransformSave
             enemy.transform.position = new Vector3(-screenBoundary + speed * Time.deltaTime, transform.position.y, 0);
         }
     }
+
     public override JsonData SavedData
     {
         get
@@ -61,11 +63,9 @@ public class Builder : TransformSave
 
     // public override string SaveID { get => transformSave.SaveID; set => transformSave.SaveID = value; }s
 
-
     // Implementing LoadFromData from ISaveable
     public override void LoadFromData(JsonData data)
     {
-
         base.LoadFromData(data);
     }
 
